@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node-script
-process.env.TS_NODE_PROJECT = './tsconfig.json'; // 指定使用tsconfig
+import fs from 'fs';
 import collectFile from '../src/collectFile';
 import transAST from '../src/transAST';
 import traverse from '../src/traverseAST';
@@ -23,7 +23,6 @@ files.forEach((file, index) => {
     const exportMap = traverse(AST, file)
     schma.push(exportMap)
 });
-debugger
 const allExport = schma.flat(2);
 const result:ExportMap = {}
 const checkRepeatingName = [];
@@ -45,5 +44,6 @@ allExport.forEach((item: ExportMap) => {
         }
     }
 });
-console.log(result);
-debugger
+const resultString = JSON.stringify(result,null, 2)
+const resultPath = process.cwd() + '/schma.json'; 
+fs.writeFileSync(resultPath, resultString, {encoding:'utf8'});
