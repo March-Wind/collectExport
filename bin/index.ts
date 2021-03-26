@@ -44,6 +44,7 @@ allExport.forEach((item: ExportMap) => {
         }
     }
 });
+debugger
 const resultString = JSON.stringify(result,null, 2)
-const resultPath = process.cwd() + '/schma.json'; 
+const resultPath = process.cwd() + '/src/schma.json'; 
 fs.writeFileSync(resultPath, resultString, {encoding:'utf8'});
