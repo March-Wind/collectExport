@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node-script
-import fs from 'fs';
-import collectFile from '../src/collectFile';
-import transAST from '../src/transAST';
-import traverse from '../src/traverseAST';
+import fs  = require('fs')
+import collectFile from './collectFile';
+import transAST from './transAST';
+import traverse from './traverseAST';
 
 interface ExportMap {
     [x: string]: {
@@ -12,7 +12,6 @@ interface ExportMap {
 
 const files = collectFile();
 // debugger
-// const AST = transAST('src/constants/EnumKey.ts');
 // const AST = transAST('1.ts');
 // debugger
 // const exportMap = traverse(AST, 'src/constants/EnumKey.ts')
@@ -44,7 +43,7 @@ allExport.forEach((item: ExportMap) => {
         }
     }
 });
-debugger
+// debugger
 const resultString = JSON.stringify(result,null, 2)
 const resultPath = process.cwd() + '/src/schma.json'; 
 fs.writeFileSync(resultPath, resultString, {encoding:'utf8'});

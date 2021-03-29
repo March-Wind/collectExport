@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs  = require('fs')
 import * as babelParse from '@babel/parser';
 import {File} from '@babel/types';
 const transAST = (filePath:string):File => {

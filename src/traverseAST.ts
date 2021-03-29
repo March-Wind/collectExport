@@ -36,6 +36,19 @@ const traverseAST = (ast:types.File, filePath:string):ExportMap[] => {
             }
         },  
         ExportNamedDeclaration(path){
+            if(path.node.source){// 过滤 export {fg} from './a' 
+                path.node.specifiers.forEach((node:Node) => {
+                    if(types.isExportSpecifier(node) && types.isIdentifier(node.exported)){
+                        const exportMap = {
+                            [filePath]: {
+                                variable: [node.exported.name]
+                            }
+                        }
+                        ImportVariable.push(exportMap)                        
+                    }
+                })
+                return;
+            }
             const  declarationNode = path.node.declaration;
             if(declarationNode && types.isVariableDeclaration(declarationNode)){
                 let variable = declarationNode.declarations.map(node => {

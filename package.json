@@ -1,15 +1,15 @@
 {
   "name": "collectexport",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "",
   "bin": {
-    "collectExport": "./bin/index.ts"
+    "collectExport": "./bin/index.js"
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "collectExport": "TS_NODE_PROJECT=./tsconfig.json node --inspect-brk  -r ts-node/register ./bin/index.ts",
-    "tsc":"tsc -p src/babel-plugin-replaceSource-import/tsconfig.json --out lib/ src/babel-plugin-replaceSource-import/replaceSource.ts"
+    "build": "tsc",
+    "clean:lib": "rm -rf lib",
+    "prepublish": "npm run clean:lib && npm run build"
   },
   "author": "",
   "license": "MIT",
