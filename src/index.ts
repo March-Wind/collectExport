@@ -19,6 +19,7 @@ const files = collectFile();
 const schma:ExportMap[][] = [];
 files.forEach((file, index) => {
     const AST = transAST(file);
+    file = file.replace(/\.(js|jsx|ts|tsx)$/,'');
     const exportMap = traverse(AST, file)
     schma.push(exportMap)
 });

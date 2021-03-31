@@ -50,7 +50,7 @@ const traverseAST = (ast:types.File, filePath:string):ExportMap[] => {
                 return;
             }
             const  declarationNode = path.node.declaration;
-            if(declarationNode && types.isVariableDeclaration(declarationNode)){
+            if(declarationNode && (types.isVariableDeclaration(declarationNode))){
                 let variable = declarationNode.declarations.map(node => {
                     if(types.isIdentifier(node.id)){
                         return node.id.name;
@@ -63,6 +63,15 @@ const traverseAST = (ast:types.File, filePath:string):ExportMap[] => {
                 }
                 exportVariable.push(exportMap)
             }
+            if(declarationNode && (types.isTSEnumDeclaration(declarationNode))){// enum表达式
+                const exportMap = {
+                    [filePath]: {
+                        variable: [declarationNode.id.name]
+                    }
+                }
+                exportVariable.push(exportMap)
+            }
+
         },
         
     }
